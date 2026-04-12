@@ -42,6 +42,7 @@ function Posts() {
   }, [loading, posts, selectedPostId]);
 
   const selectedPost = posts.find((post) => post.id === selectedPostId);
+
   const headingCounter = useRef(0);
 
   const slugify = (text) =>
@@ -49,7 +50,6 @@ function Posts() {
       .toString()
       .toLowerCase()
       .trim()
-
       .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "")
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-")
@@ -73,7 +73,6 @@ function Posts() {
         </div>
       );
     }
-
     return <p>{children}</p>;
   };
 
@@ -81,17 +80,14 @@ function Posts() {
     const content = selectedPost?.content || "";
     const lines = content.split("\n");
     const counts = {};
-
     return lines.reduce((acc, line) => {
       const match = line.match(/^(#{1,6})\s+(.*)$/);
       if (!match) return acc;
-
       const level = match[1].length;
       const text = match[2].trim();
       const base = slugify(text) || "section";
       counts[base] = (counts[base] || 0) + 1;
       const id = counts[base] === 1 ? base : `${base}-${counts[base]}`;
-
       acc.push({ level, text, id });
       return acc;
     }, []);
@@ -100,7 +96,6 @@ function Posts() {
   const headingTree = useMemo(() => {
     const root = [];
     const stack = [{ level: 0, children: root }];
-
     headings.forEach((heading) => {
       const node = { ...heading, children: [] };
       while (stack.length > 1 && heading.level <= stack[stack.length - 1].level) {
@@ -109,7 +104,6 @@ function Posts() {
       stack[stack.length - 1].children.push(node);
       stack.push(node);
     });
-
     return root;
   }, [headings]);
 
@@ -131,7 +125,6 @@ function Posts() {
     const heading = headings[headingCounter.current] || { id: slugify(text) || "section", text };
     headingCounter.current += 1;
     const Tag = `h${level}`;
-
     return (
       <Tag id={heading.id}>
         <a className="heading-link" href={`#${heading.id}`}>
@@ -196,7 +189,6 @@ function Posts() {
                   {/* BUTTON */}
                 </button>
               </div>
-
               <PostList
                 posts={posts}
                 selectedId={selectedPostId}
@@ -209,23 +201,29 @@ function Posts() {
                   setSidebarOpen(false);
                 }}
               />
-
               <div className="sidebar-footer">
                 <p>Powered by <span className="highlight">CTF.Blog</span></p>
               </div>
             </aside>
 
-            <article className="post-viewer">
+            {/* ==================== HANYA BAGIAN INI YANG DIUBAH ==================== */}
+            <article className="post-viewer overflow-x-hidden max-w-full">
               {selectedPost ? (
                 <>
                   <div className="page-title">
                     <div>
                       <p className="post-label">POST</p>
-                      <h1>{selectedPost.title}</h1>
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+                        {selectedPost.title}
+                      </h1>
                     </div>
                   </div>
-                  <div className="post-card-body">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+
+                  <div className="post-card-body bg-zinc-900 border border-zinc-800 rounded-2xl p-5 sm:p-6 md:p-8 overflow-x-hidden">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={markdownComponents}
+                    >
                       {selectedPost.content}
                     </ReactMarkdown>
                   </div>
@@ -234,6 +232,7 @@ function Posts() {
                 <div className="empty-state">Pilih post untuk melihat konten.</div>
               )}
             </article>
+            {/* ==================== AKHIR PERUBAHAN ==================== */}
 
             <aside className="toc-sidebar">
               <div className="sidebar-header">

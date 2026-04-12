@@ -624,3 +624,92 @@
 .post-viewer p {
   color: #cbd5ff;
 }
+
+/* Fix horizontal scroll di mobile */
+.posts-page,
+.content-layout,
+.post-viewer,
+.post-card-body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Code Block - Responsif */
+.code-block-container {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #30363d;
+  background: #0d1117;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.code-header {
+  background: #161b22;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #30363d;
+}
+
+.code-language {
+  font-size: 12px;
+  color: #7d8590;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.copy-button {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #30363d;
+  background: #0d1117;
+  color: #c9d1d9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: #21262d;
+}
+
+/* Shiki wrapper - Kunci utama anti horizontal scroll */
+.shiki-wrapper {
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px;
+  overflow-x: auto;
+  /* Scroll hanya di dalam code block */
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* Pastikan pre & code di dalam shiki tidak bocor */
+.shiki-wrapper pre,
+.shiki-wrapper code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  /* Tetap preserve formatting */
+  word-break: normal;
+  overflow-wrap: normal;
+  max-width: 100%;
+}
+
+/* Optional: buat code block lebih nyaman di mobile */
+@media (max-width: 640px) {
+  .shiki-wrapper {
+    font-size: 13px;
+    padding: 14px;
+  }
+}
+
+/* Inline code */
+.inline-code {
+  background: #f2f2f2;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
