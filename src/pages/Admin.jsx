@@ -230,7 +230,7 @@ function Admin() {
                       </span>
                       {post.title}
                     </h3>
-                    <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", gap: "10px" }}>
+                    <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", gap: "10px", position: "relative", zIndex: 10 }}>
                       <button type="button" className="button button-secondary" style={{ padding: "8px 16px", fontSize: "0.9rem" }} onClick={() => handleEdit(post)}>
                         Edit
                       </button>
