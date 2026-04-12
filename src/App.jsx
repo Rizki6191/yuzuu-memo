@@ -63,8 +63,8 @@ function App() {
              href="/" onClick={(e) => navigateTo(e, "home", "/")}>Home</a>
           <a className={`nav-link ${activePage === "posts" ? "active" : ""}`} 
              href="/posts" onClick={(e) => navigateTo(e, "posts", "/posts")}>Posts</a>
-          {/* <a className={`nav-link ${activePage === "admin" ? "active" : ""}`} 
-             href="/admin" onClick={(e) => navigateTo(e, "admin", "/admin")}>Admin</a> */}
+          <a className={`nav-link ${activePage === "admin" ? "active" : ""}`} 
+             href="/admin" onClick={(e) => navigateTo(e, "admin", "/admin")}>Admin</a>
         </nav>
         <div className="brand-note">A minimal capture-the-flag inspired blog dashboard.</div>
       </header>
