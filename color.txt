@@ -1,0 +1,9 @@
+#1D1D1D => base color
+#00BEEF => link
+untuk warna judul dan juga # Web Exploitation dan juga ini ## warnany white sedangkan teks kayak deskripsi dan sebagainya warnanya gray
+
+juga sesuaikan warna lainnya
+
+untuk yang di select warnanya turquoise
+
+dan juga benarkan grid yang dibagi 3 di posts supaya ketiganya bisa di scroll masing masing jadi jika salah satu di scroll tidak akan ngikut

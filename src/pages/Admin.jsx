@@ -219,8 +219,8 @@ function Admin() {
             <div className="posts-overview" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {posts.map((post) => (
                 <article key={post.id} className="admin-post-card" style={{ padding: "20px" }}>
-                  <div 
-                    className="post-card-header" 
+                  <div
+                    className="post-card-header"
                     style={{ marginBottom: 0, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between" }}
                     onClick={() => togglePost(post.id)}
                   >
@@ -234,12 +234,21 @@ function Admin() {
                       <button type="button" className="button button-secondary" style={{ padding: "8px 16px", fontSize: "0.9rem" }} onClick={() => handleEdit(post)}>
                         Edit
                       </button>
-                      <button type="button" className="button button-secondary" style={{ padding: "8px 16px", fontSize: "0.9rem", color: "#fb7185" }} onClick={() => handleDelete(post.id)}>
+                      <button
+                        type="button"
+                        className="button button-secondary"
+                        style={{ padding: "8px 16px", fontSize: "0.9rem", color: "#fb7185" }}
+                        onClick={(e) => {
+                          e.preventDefault(); // Menghindari aksi default form
+                          e.stopPropagation(); // Menghentikan klik agar tidak memicu togglePost
+                          handleDelete(post.id);
+                        }}
+                      >
                         Delete
                       </button>
                     </div>
                   </div>
-                  
+
                   {expandedPostId === post.id && (
                     <div className="post-card-content" style={{ marginTop: "20px", borderTop: "1px solid var(--border)", paddingTop: "20px" }}>
                       <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ code: CodeBlock, p: HintParagraph }}>

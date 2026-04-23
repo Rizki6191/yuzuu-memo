@@ -38,16 +38,28 @@ function CodeBlock({ inline, className, children }) {
 
     let mounted = true;
     getShiki().then((highlighter) => {
+      // Definisi transformer untuk mendeteksi URL dan mewarnainya
+      const urlTransformer = {
+        postprocess(html) {
+          return html.replace(
+            /https?:\/\/[^\s"'<>]+/g,
+            (url) => `<span style="color: #00BEEF">${url}</span>`
+          );
+        }
+      };
+
       try {
         const result = highlighter.codeToHtml(code, {
           lang: language,
           theme: "github-dark",
+          transformers: [urlTransformer],
         });
         if (mounted) setHtml(result);
       } catch {
         const fallback = highlighter.codeToHtml(code, {
           lang: "plaintext",
           theme: "github-dark",
+          transformers: [urlTransformer],
         });
         if (mounted) setHtml(fallback);
       }
