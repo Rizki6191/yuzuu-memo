@@ -37,6 +37,9 @@ function Admin() {
   const [error, setError] = useState("");
   const [expandedPostId, setExpandedPostId] = useState(null);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState(null);
+
   const togglePost = (id) => {
     setExpandedPostId(expandedPostId === id ? null : id);
   };
@@ -116,13 +119,22 @@ function Admin() {
     setEditId(post.id);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Apakah Anda yakin ingin menghapus post ini?")) return;
+  const handleDeleteClick = (id) => {
+    setPostIdToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!postIdToDelete) return;
+
     try {
-      await API.delete(`/posts/${id}`);
+      await API.delete(`/posts/${postIdToDelete}`);
       fetchPosts();
     } catch {
       setError("Gagal menghapus postingan.");
+    } finally {
+      setShowDeleteModal(false);
+      setPostIdToDelete(null);
     }
   };
 
@@ -241,7 +253,7 @@ function Admin() {
                         onClick={(e) => {
                           e.preventDefault(); // Menghindari aksi default form
                           e.stopPropagation(); // Menghentikan klik agar tidak memicu togglePost
-                          handleDelete(post.id);
+                          handleDeleteClick(post.id); // Panggil fungsi baru ini
                         }}
                       >
                         Delete
@@ -261,6 +273,41 @@ function Admin() {
             </div>
           )}
         </>
+      )}
+      {/* Modal Konfirmasi Hapus */}
+      {showDeleteModal && (
+        <div className="modal-overlay" style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', zIndex: 1000,
+          padding: '20px'
+        }}>
+          <div className="modal-card" style={{
+            backgroundColor: 'var(--card-bg, #1a1a1a)',
+            padding: '24px', borderRadius: '12px', maxWidth: '400px', width: '100%',
+            border: '1px solid var(--border)', boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
+          }}>
+            <h3 style={{ marginTop: 0 }}>Hapus Postingan?</h3>
+            <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>
+              Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus post ini?
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+              <button
+                className="button button-secondary"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Batal
+              </button>
+              <button
+                className="button"
+                style={{ backgroundColor: '#e11d48', color: 'white' }}
+                onClick={confirmDelete}
+              >
+                Ya, Hapus
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </main>
   );
