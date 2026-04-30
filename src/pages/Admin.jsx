@@ -39,6 +39,15 @@ function Admin() {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
+  
+  // Store admin key in state for mobile web view compatibility
+  const [adminKeyState, setAdminKeyState] = useState(() => {
+    try {
+      return localStorage.getItem("adminKey") || "";
+    } catch {
+      return "";
+    }
+  });
 
   const togglePost = (id) => {
     setExpandedPostId(expandedPostId === id ? null : id);
@@ -80,23 +89,38 @@ function Admin() {
       const res = await API.post("/auth", { key: authKey });
 
       if (res.data?.success) {
-        // Simpan admin key ke localStorage untuk mobile web view
-        localStorage.setItem("adminKey", authKey);
+        // Simpan admin key ke localStorage DAN window global
+        try {
+          localStorage.setItem("adminKey", authKey);
+        } catch (e) {
+          console.log("localStorage not available:", e.message);
+        }
+        window.__adminKey = authKey;
+        setAdminKeyState(authKey);
         setAuthenticated(true);
         setAuthKey("");
+        console.log("[Admin] Login successful, admin key stored");
       } else {
         setAuthError("Kunci admin salah.");
       }
-    } catch {
+    } catch (err) {
+      console.error("[Admin] Login error:", err);
       setAuthError("Kunci admin salah.");
     }
   };
 
   const handleLogout = async () => {
-    // Hapus admin key dari localStorage
-    localStorage.removeItem("adminKey");
+    // Hapus admin key dari localStorage dan window global
+    try {
+      localStorage.removeItem("adminKey");
+    } catch (e) {
+      console.log("localStorage not available:", e.message);
+    }
+    window.__adminKey = null;
+    setAdminKeyState("");
     await API.post("/logout");
     setAuthenticated(false);
+    console.log("[Admin] Logout successful");
   };
 
   const handleSubmit = async (e) => {
@@ -105,15 +129,19 @@ function Admin() {
 
     try {
       if (editId) {
+        console.log("[Admin] Updating post:", editId);
         await API.put(`/posts/${editId}`, form);
       } else {
+        console.log("[Admin] Creating new post");
         await API.post("/posts", form);
       }
 
       setForm({ title: "", content: "" });
       setEditId(null);
       fetchPosts();
-    } catch {
+      console.log("[Admin] Post saved successfully");
+    } catch (err) {
+      console.error("[Admin] Error saving post:", err.response?.status, err.message);
       setError("Gagal menyimpan postingan.");
     }
   };
@@ -132,9 +160,12 @@ function Admin() {
     if (!postIdToDelete) return;
 
     try {
+      console.log("[Admin] Deleting post:", postIdToDelete);
       await API.delete(`/posts/${postIdToDelete}`);
+      console.log("[Admin] Post deleted successfully");
       fetchPosts();
-    } catch {
+    } catch (err) {
+      console.error("[Admin] Error deleting post:", err.response?.status, err.message);
       setError("Gagal menghapus postingan.");
     } finally {
       setShowDeleteModal(false);
