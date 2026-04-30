@@ -80,6 +80,8 @@ function Admin() {
       const res = await API.post("/auth", { key: authKey });
 
       if (res.data?.success) {
+        // Simpan admin key ke localStorage untuk mobile web view
+        localStorage.setItem("adminKey", authKey);
         setAuthenticated(true);
         setAuthKey("");
       } else {
@@ -91,6 +93,8 @@ function Admin() {
   };
 
   const handleLogout = async () => {
+    // Hapus admin key dari localStorage
+    localStorage.removeItem("adminKey");
     await API.post("/logout");
     setAuthenticated(false);
   };
