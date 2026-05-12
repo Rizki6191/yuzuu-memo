@@ -1,49 +1,140 @@
+import React from 'react';
+
 function Home() {
+  // Data Achievement Kompetisi
+  const achievements = [
+    {
+      rank: "#3082",
+      title: "picoCTF 2026",
+      provider: "picoCTF",
+      participation: "Solo",
+      status: "Participant",
+      color: "#4CAF50" // Green
+    },
+    {
+      rank: "#35",
+      title: "FGTE 2026",
+      provider: "FGTE",
+      participation: "Team (2 Players)",
+      status: "Participant",
+      color: "#FFD700" // Gold
+    },
+    {
+      rank: "#57",
+      title: "Cyber Breaker ID",
+      provider: "Cyber Breaker Community",
+      participation: "Team (2 Players)",
+      status: "Regional Stage",
+      color: "#FF5722" // Orange
+    },
+    {
+      rank: "-",
+      title: "Cyber Jawara 2025",
+      provider: "ID-SIRTII / BSSN",
+      participation: "Team (2 Players)",
+      status: "Qualifier Stage",
+      color: "#fe2c07" // Blue
+    },
+     {
+      rank: "-",
+      title: "Cyber Wave 1.0",
+      provider: "",
+      participation: "Team (2 Players)",
+      status: "Qualifier Stage",
+      color: "#00E5FF" // Blue
+    }
+  ];
+
   return (
-    <main className="home-page">
+    <main className="home-page" style={{ padding: "0 20px" }}>
       <section className="hero-panel">
         <div className="hero-copy">
           <span className="eyebrow">ctf.blog</span>
-          <h1>Discover posts like flags.</h1>
+          <h1>Rizki Syahrul Ramadhan</h1>
           <p className="hero-description">
-            Browse writeups and challenge notes in a clean capture-the-flag style interface.
+            Software Engineering Student @ SMKN 10 Jakarta. <br />
+            Cybersecurity Enthusiast | CTF Player | Fullstack Developer
           </p>
-          <div className="hero-meta">
-            <span>Modern markdown rendering</span>
-            <span>Code block highlighting</span>
-            <span>Secure admin access</span>
-          </div>
           <div className="hero-actions">
             <a className="button button-primary" href="/posts">
-              View posts
+              View My Writeups
             </a>
           </div>
         </div>
       </section>
 
-      {/* Feature Grid untuk mengisi ruang kosong */}
-      <section className="features-section" style={{ marginTop: "64px", display: "grid", gap: "24px", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
-        <div className="feature-card form-card">
-          <h3 style={{ margin: "0 0 12px", color: "var(--accent)" }}>Markdown First</h3>
-          <p style={{ color: "var(--text)", margin: 0, lineHeight: 1.6, opacity: 0.8 }}>Write everything in standard Markdown, easily layout code snippets, and render beautifully structured pages without effort.</p>
-        </div>
-        <div className="feature-card form-card">
-          <h3 style={{ margin: "0 0 12px", color: "var(--accent)" }}>CTF Oriented</h3>
-          <p style={{ color: "var(--text)", margin: 0, lineHeight: 1.6, opacity: 0.8 }}>Organize your challenge notes logically. Designed exactly like how GitBook handles hierarchies for deep technical notes.</p>
-        </div>
-        <div className="feature-card form-card">
-          <h3 style={{ margin: "0 0 12px", color: "var(--accent)" }}>Lightning Fast</h3>
-          <p style={{ color: "var(--text)", margin: 0, lineHeight: 1.6, opacity: 0.8 }}>Built on top of React & Vite. Fast hot module replacement for development and instantly loading pages for readers.</p>
+      {/* Achievement Section Minimalis */}
+      <section style={{ marginTop: "48px" }}>
+        <h2 style={{ 
+          marginBottom: "32px", 
+          fontSize: "1.3rem", 
+          color: "var(--text)", 
+          textTransform: "uppercase",
+          letterSpacing: "2px",
+          opacity: 0.8
+        }}>
+          Competition Milestones
+        </h2>
+        
+        <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+          {achievements.map((item, index) => (
+            <div key={index} className="feature-card form-card" style={{ 
+              position: "relative", 
+              padding: "24px",
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              border: "1px solid var(--border)",
+              borderRadius: "8px",
+              background: "rgba(255, 255, 255, 0.02)"
+            }}>
+              {/* Rank Big Number */}
+              <div style={{ 
+                fontSize: "1.6rem", 
+                fontWeight: "900", 
+                color: item.color,
+                minWidth: "85px",
+                borderRight: "1px solid var(--border)",
+                lineHeight: 1,
+                textAlign: "center",
+                paddingRight: "15px"
+              }}>
+                {item.rank}
+              </div>
+
+              <div style={{ flex: 1 }}>
+                <div style={{ 
+                  fontSize: "0.65rem", 
+                  fontWeight: "800", 
+                  color: item.color, 
+                  textTransform: "uppercase", 
+                  marginBottom: "4px",
+                  letterSpacing: "0.5px"
+                }}>
+                  {item.status} • {item.participation}
+                </div>
+                <h3 style={{ margin: 0, fontSize: "1.05rem", color: "var(--text)", fontWeight: "600" }}>
+                  {item.title}
+                </h3>
+                <p style={{ margin: "2px 0 0", fontSize: "0.8rem", opacity: 0.5 }}>
+                  Hosted by {item.provider}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Footer minimalis khas GitBook */}
-      <footer style={{ marginTop: "80px", padding: "40px 0", borderTop: "1px solid var(--border)", textAlign: "center", color: "var(--muted)", fontSize: "0.9rem" }}>
-        <p>Built with <span style={{ color: "var(--accent)", fontWeight: "bold" }}>React</span> & Vite ⚡</p>
-        <p style={{ marginTop: "12px", opacity: 0.6 }}>© 2026 CTF Blog. Inspired by GitBook Layout.</p>
+      <footer style={{ marginTop: "100px", padding: "40px 0", borderTop: "1px solid var(--border)", textAlign: "center" }}>
+        <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
+          Built by <strong>Rizki Ramadhan</strong> — 2026 Edition
+        </p>
+        <p style={{ marginTop: "8px", fontSize: "0.8rem", opacity: 0.5 }}>
+          SMKN 10 Jakarta • Software Engineering XI RPL
+        </p>
       </footer>
     </main>
   );
 }
 
-export default Home; 
+export default Home;
