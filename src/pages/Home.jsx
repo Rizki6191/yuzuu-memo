@@ -4,24 +4,32 @@ function Home() {
   // Data Achievement Kompetisi
   const achievements = [
     {
+      rank: "#5",
+      title: "LKS JT2 CySec 2026",
+      provider: "Kemendikbudristek",
+      participation: "Team (2 Players)",
+      status: "Qualifier Stage",
+      color: "#521ce8" // Blue
+    },
+    {
       rank: "#3082",
       title: "picoCTF 2026",
       provider: "picoCTF",
-      participation: "Solo",
+      participation: "Team (2 Players)",
       status: "Participant",
       color: "#4CAF50" // Green
     },
     {
       rank: "#35",
       title: "FGTE 2026",
-      provider: "FGTE",
+      provider: "FGTE by Aria",
       participation: "Team (2 Players)",
       status: "Participant",
       color: "#FFD700" // Gold
     },
     {
       rank: "#57",
-      title: "Cyber Breaker ID",
+      title: "CBC S3 2026",
       provider: "Cyber Breaker Community",
       participation: "Team (2 Players)",
       status: "Regional Stage",
@@ -35,10 +43,10 @@ function Home() {
       status: "Qualifier Stage",
       color: "#fe2c07" // Blue
     },
-     {
+    {
       rank: "-",
       title: "Cyber Wave 1.0",
-      provider: "",
+      provider: "Cyber Wave Community",
       participation: "Team (2 Players)",
       status: "Qualifier Stage",
       color: "#00E5FF" // Blue
@@ -65,21 +73,21 @@ function Home() {
 
       {/* Achievement Section Minimalis */}
       <section style={{ marginTop: "48px" }}>
-        <h2 style={{ 
-          marginBottom: "32px", 
-          fontSize: "1.3rem", 
-          color: "var(--text)", 
+        <h2 style={{
+          marginBottom: "32px",
+          fontSize: "1.3rem",
+          color: "var(--text)",
           textTransform: "uppercase",
           letterSpacing: "2px",
           opacity: 0.8
         }}>
           Competition Milestones
         </h2>
-        
+
         <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
           {achievements.map((item, index) => (
-            <div key={index} className="feature-card form-card" style={{ 
-              position: "relative", 
+            <div key={index} className="feature-card form-card" style={{
+              position: "relative",
               padding: "24px",
               display: "flex",
               alignItems: "center",
@@ -89,9 +97,9 @@ function Home() {
               background: "rgba(255, 255, 255, 0.02)"
             }}>
               {/* Rank Big Number */}
-              <div style={{ 
-                fontSize: "1.6rem", 
-                fontWeight: "900", 
+              <div style={{
+                fontSize: "1.6rem",
+                fontWeight: "900",
                 color: item.color,
                 minWidth: "85px",
                 borderRight: "1px solid var(--border)",
@@ -103,15 +111,27 @@ function Home() {
               </div>
 
               <div style={{ flex: 1 }}>
-                <div style={{ 
-                  fontSize: "0.65rem", 
-                  fontWeight: "800", 
-                  color: item.color, 
-                  textTransform: "uppercase", 
+                <div style={{
+                  fontSize: "0.65rem",
+                  fontWeight: "800",
+                  color: item.color,
+                  textTransform: "uppercase",
                   marginBottom: "4px",
                   letterSpacing: "0.5px"
                 }}>
-                  {item.status} • {item.participation}
+                  {item.status} 
+                  
+                </div>
+                <div style={{
+                  fontSize: "0.65rem",
+                  fontWeight: "800",
+                  color: item.color,
+                  textTransform: "uppercase",
+                  marginBottom: "4px",
+                  letterSpacing: "0.5px"
+                }}>
+                  
+                  {item.participation}
                 </div>
                 <h3 style={{ margin: 0, fontSize: "1.05rem", color: "var(--text)", fontWeight: "600" }}>
                   {item.title}
