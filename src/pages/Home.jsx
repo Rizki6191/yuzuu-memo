@@ -4,12 +4,28 @@ function Home() {
   // Data Achievement Kompetisi
   const achievements = [
     {
+      rank: "#178",
+      title: "0xV01D CTF 2026",
+      provider: "0xV01D from Jordan",
+      participation: "Team (1 Players)",
+      status: "Participant",
+      color: "#1ce859" // Blue
+    },
+    {
+      rank: "#379",
+      title: "TJCTF 2026",
+      provider: "Thomas Jefferson High School for Science and Technology",
+      participation: "Team (1 Players)",
+      status: "Participant",
+      color: "#e81c1c" // Blue
+    },
+    {
       rank: "#5",
       title: "LKS JT2 CySec 2026",
       provider: "Kemendikbudristek",
       participation: "Team (2 Players)",
       status: "Qualifier Stage",
-      color: "#521ce8" // Blue
+      color: "#1caee8" // Blue
     },
     {
       rank: "#3082",
@@ -81,7 +97,7 @@ function Home() {
           letterSpacing: "2px",
           opacity: 0.8
         }}>
-          Competition Milestones
+          Competition
         </h2>
 
         <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
